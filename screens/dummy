@@ -1,0 +1,188 @@
+import React from "react";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableHighlight } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+
+const Section4 = () => {
+  // Dummy user information
+  const user = {
+    username: "John Doe",
+    bio: "Web Developer",
+    Contact: "6393011373",
+    UsesrID: "asdfghjkl",
+    posts: 120,
+    followers: 1500,
+    following: 500,
+    profileImage: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg", // Replace with actual URL
+  };
+
+  // Dummy lists
+  const manageList = [
+    { title: "Promotions", icon: "bell" },
+    { title: "Restore Subscription", icon: "refresh" },
+    { title: "Privacy and Data", icon: "shield" },
+    { title: "Your Domains", icon: "globe" },
+  ];
+  const contactPreferencesList = [
+    { title: "Push Notifications", icon: "bell" },
+    { title: "Email Notifications", icon: "envelope" },
+  ];
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.profileContainer}>
+        <Image style={styles.profileImage} source={{ uri: user.profileImage }} />
+        <View style={styles.userInfoContainer}>
+          <Text style={styles.username}>{user.username}</Text>
+          <Text style={styles.bio}>{user.bio}</Text>
+        </View>
+      </View>
+
+      <View style={styles.tableContainer}>
+        <TableRow label="Contact" value={user.Contact} />
+        <TableRow label="UsesrID" value={user.UsesrID} />
+        <TableRow label="Posts" value={user.posts} />
+        <TableRow label="Followers" value={user.followers} />
+        <TableRow label="Following" value={user.following} />
+      </View>
+
+      <View style={styles.listContainer}>
+        <View style={styles.headingList}>
+          <Text style={styles.listTitle}>Manage</Text>
+        </View>
+        {manageList.map((item, index) => (
+          <TouchableHighlight
+            key={index}
+            underlayColor="#D3D3D3"
+            onPress={() => handleListItemPress(item)} // Replace with your press handler
+            style={styles.touchableHighlight}
+          >
+            <ListItemWithIcon title={item.title} iconName={item.icon} />
+          </TouchableHighlight>
+        ))}
+      </View>
+
+      <View style={styles.listContainer}>
+        <View style={styles.headingList}>
+          <Text style={styles.listTitle}>Contact Preferences</Text>
+        </View>
+
+        {contactPreferencesList.map((item, index) => (
+          <TouchableHighlight
+            key={index}
+            underlayColor="#D3D3D3"
+            onPress={() => handleListItemPress(item)} // Replace with your press handler
+            style={styles.touchableHighlight}
+          >
+            <ListItemWithIcon title={item.title} iconName={item.icon} />
+          </TouchableHighlight>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
+
+const TableRow = ({ label, value }) => (
+  <View style={styles.tableRow}>
+    <View style={styles.tableColumn}>
+      <Text style={styles.tableLabel}>{label}</Text>
+    </View>
+
+    <View style={styles.tableColumn}>
+      <Text style={styles.tableValue}>{value}</Text>
+    </View>
+  </View>
+);
+
+const ListItemWithIcon = ({ title, iconName }) => (
+  <View style={styles.listItem}>
+    <FontAwesome name={iconName} size={20} color="black" />
+    <Text style={styles.listItemText}>{title}</Text>
+  </View>
+);
+
+const handleListItemPress = (item) => {
+  // Handle the press action for the list item
+  console.log(`Pressed: ${item.title}`);
+};
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    width: "100%",
+  },
+  profileContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 30,
+    marginTop: 30,
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
+  userInfoContainer: {
+    marginLeft: 20,
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  bio: {
+    fontSize: 16,
+    color: "gray",
+  },
+  tableContainer: {
+    width: "80%",
+    marginBottom: 20,
+  },
+  tableRow: {
+    height: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  tableColumn: {
+    width: "50%",
+  },
+  tableLabel: {
+    fontSize: 16,
+    color: "gray",
+  },
+  tableValue: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  listContainer: {
+    width: "100%",
+  },
+  headingList: {
+    height: 50,
+    backgroundColor: "#D3D3D3",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+  },
+  listTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black",
+  },
+  listItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  touchableHighlight: {
+    borderRadius: 5,
+    marginVertical: 5,
+    height:50
+  },
+  listItemText: {
+    fontSize: 16,
+    color: "gray",
+    marginLeft: 10,
+  },
+});
+
+export default Section4;
